@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="header-section">
+        <h1>Generate an <a href="https://www.reddit.com/r/EngineeringResumes/wiki/index/" class="highlight"
+                target="_blank">Engineering Resume</a></h1>
+        <p>Create a TeX file for accuracy or a PDF file for convenience</p>
+    </div>
+
+    <div class="resume-style-section">
+        <h2>Resume Style</h2>
+        <p>What describes you?</p>
+        <select name="description" id="description">
+            <option value="student-no-experience">Student Without Any Technical Work Experience</option>
+            <option value="student-some-experience">Student or New Graduate With Some Work Experience</option>
+            <option value="graduate-experience">Graduate With Work Experience</option>
+        </select>
+    </div>
+
+    <script src="scripts/description.js"></script>
+
+    <div class="profile-info-section">
+        <h2>Profile Information</h2>
+        <form id="profile-form">
+            <label for="full-name">Full Name:</label>
+            <input type="text" id="full-name" name="full-name" required><br>
+
+            <label for="gmail">Email:</label>
+            <input type="email" id="gmail" name="gmail" required><br>
+
+            <label for="phone">Phone Number (Optional):</label>
+            <input type="tel" id="phone" name="phone"><br>
+
+            <label for="linkedin">LinkedIn (Optional):</label>
+            <input type="url" id="linkedin" name="linkedin"><br>
+
+            <label for="github">GitHub (Optional):</label>
+            <input type="url" id="github" name="github"><br>
+        </form>
+    </div>
+
+    <script src="scripts/profile.js"></script>
+
+    <div class="education-section">
+        <h2>Education</h2>
+        <p>List Institutes in Reverse Chronological Order</p>
+        <label for="num-institutions">Number of Institutions:</label>
+        <select id="num-institutions">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <div id="education-forms"></div>
+    </div>
+
+    <script src="scripts/education.js"></script>
+
+    <div class="experience-section">
+        <h2>Experience</h2>
+        <p>List Experiences in Reverse Chronological Order</p>
+        <label for="num-experiences">Number of Experiences:</label>
+        <select id="num-experiences">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        <div id="experience-forms"></div>
+    </div>
+
+    <script src="scripts/experience.js"></script>
+
+    <div class="projects-section">
+        <h2>Projects</h2>
+        <p>List Projects in Reverse Chronological Order</p>
+        <label for="num-projects">Number of Projects:</label>
+        <select id="num-projects">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        <div id="project-forms"></div>
+    </div>
+
+    <script src="scripts/projects.js"></script>
+
+    <div class="skills-section">
+        <h2>Skills</h2>
+        <label for="num-skills-sections">Number of Sections:</label>
+        <select id="num-skills-sections">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+        <div id="skills-forms"></div>
+    </div>
+
+    <script src="scripts/skills.js"></script>
+
+    <div class="create-resume-section">
+        <button id="create-resume">Generate Resume (.tex)</button>
+    </div>
+
+    <script src="scripts/texGeneration.js"></script>
+
+    <div class="create-resume-section">
+        <button id="create-pdf-resume">Generate Resume (.pdf)</button>
+    </div>
+
+    <script src="scripts/pdfGeneration.js"></script>
+
+    <div class="create-resume-section">
+        <button id="instruction-button">How to Import a TeX File into Overleaf 📝</button>
+    </div>
+
+    <script src="scripts/instructions.js"></script>
+</body>
+
+</html>
