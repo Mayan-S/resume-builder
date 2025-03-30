@@ -10,7 +10,7 @@ function createSkillsForm(index) {
             <label for="skills-title-${index}">Section Title:</label>
             <input type="text" id="skills-title-${index}" name="skills-title-${index}" required><br>
 
-            <label for="associated-skills-${index}">Associated Skills (Seperate by Commas):</label>
+            <label for="associated-skills-${index}">Associated Skills (Separate by Commas):</label>
             <input type="text" id="associated-skills-${index}" name="associated-skills-${index}" required><br>
         </div>
     `;
