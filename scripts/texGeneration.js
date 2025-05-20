@@ -35,43 +35,29 @@ function checkSpecialCharacters() {
 }
 
 function generateTexContent() {
-    let tex = `
-\\documentclass[10pt, letterpaper]{article}
-\\usepackage[ignoreheadfoot, top=0.5in, bottom=0.5in, left=0.5in, right=0.5in, footskip=0.25in]{geometry}
-\\usepackage{titlesec, tabularx, array, xcolor, enumitem, fontawesome5, amsmath, hyperref, eso-pic, calc, bookmark, lastpage, changepage, paracol, ifthen, needspace, iftex}
-\\definecolor{primaryColor}{RGB}{0, 0, 0}
-\\ifPDFTeX
-    \\input{glyphtounicode}
-    \\pdfgentounicode=1
-    \\usepackage[T1]{fontenc}
-    \\usepackage[utf8]{inputenc}
-    \\usepackage{lmodern}
-\\fi
-\\usepackage{charter}
-\\raggedright
-\\AtBeginEnvironment{adjustwidth}{\\partopsep0pt}
-\\pagestyle{empty}
-\\setcounter{secnumdepth}{0}
-\\setlength{\\parindent}{0pt}
-\\setlength{\\topskip}{0pt}
-\\setlength{\\columnsep}{0.15cm}
-\\pagenumbering{gobble}
-\\titleformat{\\section}{\\needspace{4\\baselineskip}\\bfseries\\large}{}{0pt}{}[\\vspace{1pt}\\titlerule]
-\\titlespacing{\\section}{-1pt}{0.3cm}{0.2cm}
+    let tex = `\\documentclass[11pt]{article}       
+\\usepackage[letterpaper,                
+top=0.5in,                          
+bottom=0.5in,                       
+left=0.5in,                         
+right=0.5in]{geometry}              
+                       
+\\usepackage{XCharter}               
+\\usepackage[T1]{fontenc}            
+\\usepackage[utf8]{inputenc}         
+\\usepackage{enumitem}               
+\\usepackage[hidelinks]{hyperref}    
+\\usepackage{titlesec}               
+\\raggedright                        
+\\pagestyle{empty}                   
+\\usepackage{fontawesome5}           
+
+\\titleformat{\\section}{\\bfseries\\large}{}{0pt}{}[\\vspace{1pt}\\titlerule\\vspace{-6.5pt}]
+
 \\renewcommand\\labelitemi{$\\vcenter{\\hbox{\\small$\\bullet$}}$}
-\\newenvironment{highlights}{\\begin{itemize}[topsep=0.10cm, parsep=0.10cm, partopsep=0pt, itemsep=0pt, leftmargin=0cm+10pt]}{\\end{itemize}}
-\\newenvironment{highlightsforbulletentries}{\\begin{itemize}[topsep=0.10cm, parsep=0.10cm, partopsep=0pt, itemsep=0pt, leftmargin=10pt]}{\\end{itemize}}
-\\newenvironment{onecolentry}{\\begin{adjustwidth}{0cm+0.00001cm}{0cm+0.00001cm}}{\\end{adjustwidth}}
-\\newenvironment{twocolentry}[2][]{\\onecolentry\\def\\secondColumn{#2}\\setcolumnwidth{\\fill, 4.5cm}\\begin{paracol}{2}}{\\switchcolumn \\raggedleft \\secondColumn\\end{paracol}\\endonecolentry}
-\\newenvironment{threecolentry}[3][]{\\onecolentry\\def\\thirdColumn{#3}\\setcolumnwidth{, \\fill, 4.5cm}\\begin{paracol}{3}{\\raggedright #2} \\switchcolumn}{\\switchcolumn \\raggedleft \\thirdColumn\\end{paracol}\\endonecolentry}
-\\newenvironment{header}{\\setlength{\\topsep}{0pt}\\par\\kern\\topsep\\centering\\linespread{1.5}}{\\par\\kern\\topsep}
-\\newcommand{\\placelastupdatedtext}{\\AddToShipoutPictureFG*{\\put(\\LenToUnit{\\paperwidth-2cm-0cm+0.05cm},\\LenToUnit{\\paperheight-1.0cm}){\\vtop{{\\null}\\makebox[0pt][c]{\\small\\color{gray}\\textit{Last updated in September 2024}\\hspace{\\widthof{Last updated in September 2024}}}}}}}
-\\let\\hrefWithoutArrow\\href
-\\begin{document}
-\\newcommand{\\AND}{\\unskip\\cleaders\\copy\\ANDbox\\hskip\\wd\\ANDbox\\ignorespaces}
-\\newsavebox\\ANDbox
-\\sbox\\ANDbox{$|$}
-`;
+\\setlist[itemize]{itemsep=-2pt, leftmargin=12pt, topsep=7pt} 
+
+\\begin{document}`;
 
     tex += generateProfileSection();
 
@@ -93,13 +79,12 @@ function generateTexContent() {
 }
 
 function generateProfileSection() {
-    let profile = '\\begin{header}\n';
-    profile += `\\fontsize{25pt}{25pt}\\selectfont \\textbf{${fullName}}\n\\normalsize\n
-    `;
+    let profile = '\n';
+    profile += `\\centerline{\\Huge \\textbf{${fullName}}}\n\\vspace{5pt}\n\\centerline{`;
 
     const fields = [phone, gmail, linkedin, github].filter(Boolean);
-    profile += fields.join(' $|$~ ') + '\n';
-    profile += '\\end{header}\n\\vspace{5pt}\n';
+    profile += fields.join(' | ');
+    profile += '}\n\\vspace{-5.5pt}';
     return profile;
 }
 
@@ -114,71 +99,61 @@ function getOrder(description) {
 }
 
 function generateEducationSection() {
-    let tex = '\\section{Education}\n';
+    let tex = '\\section*{Education}\n';
     educationData.forEach(ed => {
-        tex += `\\begin{twocolentry}{${ed.startDate} - ${ed.endDate}}\n`;
-        tex += `\\textbf{${ed.institute}} $|$ ${ed.degree}\\end{twocolentry}\n`;
+        tex += `\\textbf{${ed.institute}} | ${ed.degree} \\hfill ${ed.startDate} - ${ed.endDate} \\\\\n`;
         if (ed.gpa) {
-            tex += '\\vspace{0.10cm}\n\\begin{onecolentry}\n\\begin{highlights}\n';
-            tex += `\\item \\textbf{GPA: ${ed.gpa}/4.00}\n`;
-            tex += '\\end{highlights}\n\\end{onecolentry}\n';
+            tex += `\\textbf{GPA: ${ed.gpa}/4.00} \\\\\n`;
         }
-        tex += `\\vspace{0.3cm}\n`;
     });
-    tex += `\\vspace{-0.25cm}\n`;
+    tex += `\\vspace{-6.5pt}\n`;
     return tex;
 }
 
 function generateSkillsSection() {
-    let tex = '\\section{Skills}\n';
+    let tex = '\\section*{Skills}\n';
     skillsData.forEach(skill => {
-        tex += `\\begin{onecolentry}\n\\textbf{${skill.sectionTitle}:} ${skill.associatedSkills}\\end{onecolentry}\n\\vspace{0.1cm}\n`;
+        tex += `\\textbf{${skill.sectionTitle}:} ${skill.associatedSkills} \\\\\n`;
     });
-    tex += `\\vspace{-0.05cm}\n`;
+    tex += `\\vspace{-6.5pt}\n`;
     return tex;
 }
 
 function generateProjectsSection() {
-    let tex = '\\section{Projects}\n';
+    let tex = '\\section*{Projects}\n';
     projectData.forEach(proj => {
+        tex += `\\textbf{${proj.projectName}} | ${proj.linkOrTeam} \\hfill ${proj.startDate} - ${proj.endDate} \\\\\n\\vspace{-9pt}\n`;
+        tex += `\\begin{itemize}\n`;
         if (proj.points.length > 0) {
-            tex += `\\begin{twocolentry}{${proj.startDate} - ${proj.endDate}}\n`;
-            tex += `\\textbf{${proj.projectName}} $|$ ${proj.linkOrTeam}\\end{twocolentry}\n`;
-            tex += '\\vspace{0.10cm}\n\\begin{onecolentry}\n\\begin{highlights}\n';
             proj.points.forEach(point => {
                 tex += `\\item ${point}\n`;
             });
-            tex += '\\end{highlights}\n\\end{onecolentry}\n\\vspace{0.3cm}\n';
         }
         else{
-            tex += `\\begin{twocolentry}{${proj.startDate} - ${proj.endDate}}\n`;
-            tex += `\\textbf{${proj.projectName}} $|$ ${proj.linkOrTeam}\\end{twocolentry}\n`;
-            tex += `\\vspace{0.3cm}\n`;
+            tex += `\\vspace{9pt}\n`;
         }
+        tex += `\\end{itemize}\n`;
     });
-    tex += `\\vspace{-0.25cm}\n`;
+    tex += `\\vspace{-16.5pt}\n`;
     return tex;
 }
 
 function generateExperienceSection() {
     let tex = '\\section{Experience}\n';
     experienceData.forEach(exp => {
+        tex += `\\textbf{${exp.position}} | ${exp.organization} \\hfill ${exp.startDate} - ${exp.endDate} \\\\\n\\vspace{-9pt}\n`;
+        tex += `\\begin{itemize}\n`;
         if (exp.points.length > 0) {
-            tex += `\\begin{twocolentry}{${exp.startDate} - ${exp.endDate}}\n`;
-            tex += `\\textbf{${exp.organization}} $|$ ${exp.position}\\end{twocolentry}\n`;
-            tex += '\\vspace{0.10cm}\n\\begin{onecolentry}\n\\begin{highlights}\n';
             exp.points.forEach(point => {
                 tex += `\\item ${point}\n`;
             });
-            tex += '\\end{highlights}\n\\end{onecolentry}\n\\vspace{0.3cm}\n';
         }
         else{
-            tex += `\\begin{twocolentry}{${exp.startDate} - ${exp.endDate}}\n`;
-            tex += `\\textbf{${exp.organization}} $|$ ${exp.position}\\end{twocolentry}\n`;
-            tex += `\\vspace{0.3cm}\n`;
+            tex += `\\vspace{9pt}\n`;
         }
+        tex += `\\end{itemize}\n`;
     });
-    tex += `\\vspace{-0.25cm}\n`;
+    tex += `\\vspace{-16.5pt}\n`;
     return tex;
 }
 
