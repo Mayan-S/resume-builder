@@ -1,4 +1,4 @@
-const numProjectsSelect = document.getElementById('num-projects');
+const numProjectsInput = document.getElementById('num-projects');
 const projectFormsContainer = document.getElementById('project-forms');
 
 let projectData = [];
@@ -20,16 +20,24 @@ function createProjectForm(index) {
             <input type="text" id="proj-end-date-${index}" name="proj-end-date-${index}" required><br>
 
             <label for="proj-num-points-${index}">Number of Points:</label>
-            <select id="proj-num-points-${index}">
-                ${Array.from({ length: 11 }, (_, i) => `<option value="${i}">${i}</option>`).join('')}
-            </select>
+            <input type="number" id="proj-num-points-${index}" min="0" max="10" value="0"><br>
             <div id="proj-points-container-${index}"></div>
         </div>
     `;
 }
 
 function updateProjectForms() {
-    const numProjects = parseInt(numProjectsSelect.value, 10);
+    let numProjects = parseInt(numProjectsInput.value, 10) || 0;
+    
+    // Ensure the number is within the valid range
+    if (numProjects < 0) {
+        numProjects = 0;
+    } else if (numProjects > 8) {
+        numProjects = 8;
+    }
+    
+    numProjectsInput.value = numProjects; // Update the input value to reflect the valid range
+
     projectFormsContainer.innerHTML = '';
     projectData = [];
     for (let i = 1; i <= numProjects; i++) {
@@ -51,7 +59,7 @@ function attachProjectListeners() {
         const linkOrTeamInput = document.getElementById(`link-or-team-${index + 1}`);
         const startDateInput = document.getElementById(`proj-start-date-${index + 1}`);
         const endDateInput = document.getElementById(`proj-end-date-${index + 1}`);
-        const numPointsSelect = document.getElementById(`proj-num-points-${index + 1}`);
+        const numPointsInput = document.getElementById(`proj-num-points-${index + 1}`);
         const pointsContainer = document.getElementById(`proj-points-container-${index + 1}`);
 
         projectNameInput.addEventListener('input', (event) => {
@@ -74,8 +82,18 @@ function attachProjectListeners() {
             console.log(`Project ${index + 1} End Date:`, projectData[index].endDate);
         });
 
-        numPointsSelect.addEventListener('change', () => {
-            const numPoints = parseInt(numPointsSelect.value, 10);
+        numPointsInput.addEventListener('input', () => {
+            let numPoints = parseInt(numPointsInput.value, 10) || 0;
+            
+            // Ensure the number is within the valid range
+            if (numPoints < 0) {
+                numPoints = 0;
+            } else if (numPoints > 10) {
+                numPoints = 10;
+            }
+            
+            numPointsInput.value = numPoints; // Update the input value to reflect the valid range
+
             pointsContainer.innerHTML = '';
             projectData[index].points = Array(numPoints).fill('');
             for (let j = 1; j <= numPoints; j++) {
@@ -92,10 +110,10 @@ function attachProjectListeners() {
             }
         });
 
-        numPointsSelect.dispatchEvent(new Event('change'));
+        numPointsInput.dispatchEvent(new Event('input'));
     });
 }
 
-numProjectsSelect.addEventListener('change', updateProjectForms);
+numProjectsInput.addEventListener('input', updateProjectForms);
 
 updateProjectForms();

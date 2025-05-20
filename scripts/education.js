@@ -1,4 +1,4 @@
-const numInstitutionsSelect = document.getElementById('num-institutions');
+const numInstitutionsInput = document.getElementById('num-institutions');
 const educationFormsContainer = document.getElementById('education-forms');
 
 let educationData = [];
@@ -26,7 +26,17 @@ function createEducationForm(index) {
 }
 
 function updateEducationForms() {
-    const numInstitutions = parseInt(numInstitutionsSelect.value, 10);
+    let numInstitutions = parseInt(numInstitutionsInput.value, 10) || 0;
+    
+    // Ensure the number is within the valid range
+    if (numInstitutions < 0) {
+        numInstitutions = 0;
+    } else if (numInstitutions > 4) {
+        numInstitutions = 4;
+    }
+    
+    numInstitutionsInput.value = numInstitutions; // Update the input value to reflect the valid range
+
     educationFormsContainer.innerHTML = '';
     educationData = [];
     for (let i = 1; i <= numInstitutions; i++) {
@@ -77,6 +87,6 @@ function attachEducationListeners() {
     });
 }
 
-numInstitutionsSelect.addEventListener('change', updateEducationForms);
+numInstitutionsInput.addEventListener('input', updateEducationForms);
 
 updateEducationForms();

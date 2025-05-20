@@ -15,7 +15,7 @@
     <div class="header-section">
         <h1>Generate an <a href="https://www.reddit.com/r/EngineeringResumes/wiki/index/" class="highlight"
                 target="_blank">Engineering Resume</a></h1>
-        <p>Create a TeX file for accuracy or a PDF file for convenience</p>
+        <p>📂 Create a TeX file for accuracy or a PDF file for convenience 📝</p>
     </div>
 
     <div class="resume-style-section">
@@ -56,13 +56,7 @@
         <h2>Education</h2>
         <p>List Institutes in Reverse Chronological Order</p>
         <label for="num-institutions">Number of Institutions:</label>
-        <select id="num-institutions">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
+        <input type="number" id="num-institutions" min="0" max="4" value="0">
         <div id="education-forms"></div>
     </div>
 
@@ -72,17 +66,7 @@
         <h2>Experience</h2>
         <p>List Experiences in Reverse Chronological Order</p>
         <label for="num-experiences">Number of Experiences:</label>
-        <select id="num-experiences">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-        </select>
+        <input type="number" id="num-experiences" min="0" max="8" value="0">
         <div id="experience-forms"></div>
     </div>
 
@@ -92,17 +76,7 @@
         <h2>Projects</h2>
         <p>List Projects in Reverse Chronological Order</p>
         <label for="num-projects">Number of Projects:</label>
-        <select id="num-projects">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-        </select>
+        <input type="number" id="num-projects" min="0" max="8" value="0">
         <div id="project-forms"></div>
     </div>
 
@@ -111,34 +85,26 @@
     <div class="skills-section">
         <h2>Skills</h2>
         <label for="num-skills-sections">Number of Sections:</label>
-        <select id="num-skills-sections">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
+        <input type="number" id="num-skills-sections" min="0" max="6" value="0">
         <div id="skills-forms"></div>
     </div>
 
     <script src="scripts/skills.js"></script>
 
     <div class="create-resume-section">
-        <button id="create-resume">Generate Resume (.tex)</button>
+        <button id="create-resume">Generate Resume (.tex) 📑</button>
     </div>
 
     <script src="scripts/texGeneration.js"></script>
 
     <div class="create-resume-section">
-        <button id="create-pdf-resume">Generate Resume (.pdf)</button>
+        <button id="create-pdf-resume">Generate Resume (.pdf) 🖨️</button>
     </div>
 
     <script src="scripts/pdfGeneration.js"></script>
 
     <div class="create-resume-section">
-        <button id="instruction-button">How to Import a TeX File into Overleaf 📝</button>
+        <button id="instruction-button">How to Import a TeX File into Overleaf 📥</button>
     </div>
 
     <script src="scripts/instructions.js"></script>

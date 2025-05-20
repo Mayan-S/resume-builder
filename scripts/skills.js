@@ -1,4 +1,4 @@
-const numSkillsSectionsSelect = document.getElementById('num-skills-sections');
+const numSkillsSectionsInput = document.getElementById('num-skills-sections');
 const skillsFormsContainer = document.getElementById('skills-forms');
 
 let skillsData = [];
@@ -17,7 +17,17 @@ function createSkillsForm(index) {
 }
 
 function updateSkillsForms() {
-    const numSkillsSections = parseInt(numSkillsSectionsSelect.value, 10);
+    let numSkillsSections = parseInt(numSkillsSectionsInput.value, 10) || 0;
+    
+    // Ensure the number is within the valid range
+    if (numSkillsSections < 0) {
+        numSkillsSections = 0;
+    } else if (numSkillsSections > 6) {
+        numSkillsSections = 6;
+    }
+    
+    numSkillsSectionsInput.value = numSkillsSections; // Update the input value to reflect the valid range
+
     skillsFormsContainer.innerHTML = '';
     skillsData = [];
     for (let i = 1; i <= numSkillsSections; i++) {
@@ -47,6 +57,6 @@ function attachSkillsListeners() {
     });
 }
 
-numSkillsSectionsSelect.addEventListener('change', updateSkillsForms);
+numSkillsSectionsInput.addEventListener('input', updateSkillsForms);
 
 updateSkillsForms();

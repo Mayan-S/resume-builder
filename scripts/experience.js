@@ -1,4 +1,4 @@
-const numExperiencesSelect = document.getElementById('num-experiences');
+const numExperiencesInput = document.getElementById('num-experiences');
 const experienceFormsContainer = document.getElementById('experience-forms');
 
 let experienceData = [];
@@ -7,11 +7,11 @@ function createExperienceForm(index) {
     return `
         <div class="experience-form" id="experience-form-${index}">
             <hr>
-            <label for="organization-${index}">Name of Organization:</label>
-            <input type="text" id="organization-${index}" name="organization-${index}" required><br>
-
             <label for="position-${index}">Position:</label>
             <input type="text" id="position-${index}" name="position-${index}" required><br>
+            
+            <label for="organization-${index}">Name of Organization:</label>
+            <input type="text" id="organization-${index}" name="organization-${index}" required><br>
 
             <label for="exp-start-date-${index}">Start Date:</label>
             <input type="text" id="exp-start-date-${index}" name="exp-start-date-${index}" required><br>
@@ -20,16 +20,24 @@ function createExperienceForm(index) {
             <input type="text" id="exp-end-date-${index}" name="exp-end-date-${index}" required><br>
 
             <label for="num-points-${index}">Number of Points:</label>
-            <select id="num-points-${index}">
-                ${Array.from({ length: 11 }, (_, i) => `<option value="${i}">${i}</option>`).join('')}
-            </select>
+            <input type="number" id="num-points-${index}" min="0" max="10" value="0"><br>
             <div id="points-container-${index}"></div>
         </div>
     `;
 }
 
 function updateExperienceForms() {
-    const numExperiences = parseInt(numExperiencesSelect.value, 10);
+    let numExperiences = parseInt(numExperiencesInput.value, 10) || 0;
+    
+    // Ensure the number is within the valid range
+    if (numExperiences < 0) {
+        numExperiences = 0;
+    } else if (numExperiences > 8) {
+        numExperiences = 8;
+    }
+    
+    numExperiencesInput.value = numExperiences; // Update the input value to reflect the valid range
+
     experienceFormsContainer.innerHTML = '';
     experienceData = [];
     for (let i = 1; i <= numExperiences; i++) {
@@ -51,7 +59,7 @@ function attachExperienceListeners() {
         const positionInput = document.getElementById(`position-${index + 1}`);
         const startDateInput = document.getElementById(`exp-start-date-${index + 1}`);
         const endDateInput = document.getElementById(`exp-end-date-${index + 1}`);
-        const numPointsSelect = document.getElementById(`num-points-${index + 1}`);
+        const numPointsInput = document.getElementById(`num-points-${index + 1}`);
         const pointsContainer = document.getElementById(`points-container-${index + 1}`);
 
         organizationInput.addEventListener('input', (event) => {
@@ -74,8 +82,18 @@ function attachExperienceListeners() {
             console.log(`End Date ${index + 1}:`, experienceData[index].endDate);
         });
 
-        numPointsSelect.addEventListener('change', () => {
-            const numPoints = parseInt(numPointsSelect.value, 10);
+        numPointsInput.addEventListener('input', () => {
+            let numPoints = parseInt(numPointsInput.value, 10) || 0;
+            
+            // Ensure the number is within the valid range
+            if (numPoints < 0) {
+                numPoints = 0;
+            } else if (numPoints > 10) {
+                numPoints = 10;
+            }
+            
+            numPointsInput.value = numPoints; // Update the input value to reflect the valid range
+
             pointsContainer.innerHTML = '';
             experienceData[index].points = Array(numPoints).fill('');
             for (let j = 1; j <= numPoints; j++) {
@@ -92,10 +110,10 @@ function attachExperienceListeners() {
             }
         });
 
-        numPointsSelect.dispatchEvent(new Event('change'));
+        numPointsInput.dispatchEvent(new Event('input'));
     });
 }
 
-numExperiencesSelect.addEventListener('change', updateExperienceForms);
+numExperiencesInput.addEventListener('input', updateExperienceForms);
 
 updateExperienceForms();
