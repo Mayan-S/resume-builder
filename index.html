@@ -1,115 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BNVHSKFYSF"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-<head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BNVHSKFYSF"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        gtag('config', 'G-BNVHSKFYSF');
+        </script>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resume Builder</title>
+        <link rel="icon" href="icon.png" type="image/png">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    </head>
 
-    gtag('config', 'G-BNVHSKFYSF');
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Builder</title>
-    <link rel="icon" href="icon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
+    <body>
+        <div class="header-section">
+            <h1>Generate an <a href="https://www.reddit.com/r/EngineeringResumes/wiki/index/" class="highlight"
+                    target="_blank">Engineering Resume</a></h1>
+            <p>📂 Create a TeX file for accuracy or a PDF file for convenience 📝</p>
+        </div>
 
-<body>
-    <div class="header-section">
-        <h1>Generate an <a href="https://www.reddit.com/r/EngineeringResumes/wiki/index/" class="highlight"
-                target="_blank">Engineering Resume</a></h1>
-        <p>📂 Create a TeX file for accuracy or a PDF file for convenience 📝</p>
-    </div>
+        <div class="resume-style-section">
+            <h2>Resume Style</h2>
+            <p>What describes you?</p>
+            <select name="description" id="description">
+                <option value="student-no-experience">Student Without Any Technical Work Experience</option>
+                <option value="student-some-experience">Student or New Graduate With Some Work Experience</option>
+                <option value="graduate-experience">Graduate With Work Experience</option>
+            </select>
+        </div>
 
-    <div class="resume-style-section">
-        <h2>Resume Style</h2>
-        <p>What describes you?</p>
-        <select name="description" id="description">
-            <option value="student-no-experience">Student Without Any Technical Work Experience</option>
-            <option value="student-some-experience">Student or New Graduate With Some Work Experience</option>
-            <option value="graduate-experience">Graduate With Work Experience</option>
-        </select>
-    </div>
+        <script src="scripts/description.js"></script>
 
-    <script src="scripts/description.js"></script>
+        <div class="profile-info-section">
+            <h2>Profile Information</h2>
+            <form id="profile-form">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required><br>
 
-    <div class="profile-info-section">
-        <h2>Profile Information</h2>
-        <form id="profile-form">
-            <label for="full-name">Full Name:</label>
-            <input type="text" id="full-name" name="full-name" required><br>
+                <label for="gmail">Email:</label>
+                <input type="email" id="gmail" name="gmail" required><br>
 
-            <label for="gmail">Email:</label>
-            <input type="email" id="gmail" name="gmail" required><br>
+                <label for="phone">Phone Number (Optional):</label>
+                <input type="tel" id="phone" name="phone"><br>
 
-            <label for="phone">Phone Number (Optional):</label>
-            <input type="tel" id="phone" name="phone"><br>
+                <label for="linkedin">LinkedIn (Optional):</label>
+                <input type="url" id="linkedin" name="linkedin"><br>
 
-            <label for="linkedin">LinkedIn (Optional):</label>
-            <input type="url" id="linkedin" name="linkedin"><br>
+                <label for="github">GitHub (Optional):</label>
+                <input type="url" id="github" name="github"><br>
+            </form>
+        </div>
 
-            <label for="github">GitHub (Optional):</label>
-            <input type="url" id="github" name="github"><br>
-        </form>
-    </div>
+        <script src="scripts/profile.js"></script>
 
-    <script src="scripts/profile.js"></script>
+        <div class="education-section">
+            <h2>Education</h2>
+            <p>List Institutes in Reverse Chronological Order</p>
+            <label for="num-institutions">Number of Institutions:</label>
+            <input type="number" id="num-institutions" min="0" max="4" value="0">
+            <div id="education-forms"></div>
+        </div>
 
-    <div class="education-section">
-        <h2>Education</h2>
-        <p>List Institutes in Reverse Chronological Order</p>
-        <label for="num-institutions">Number of Institutions:</label>
-        <input type="number" id="num-institutions" min="0" max="4" value="0">
-        <div id="education-forms"></div>
-    </div>
+        <script src="scripts/education.js"></script>
 
-    <script src="scripts/education.js"></script>
+        <div class="experience-section">
+            <h2>Experience</h2>
+            <p>List Experiences in Reverse Chronological Order</p>
+            <label for="num-experiences">Number of Experiences:</label>
+            <input type="number" id="num-experiences" min="0" max="8" value="0">
+            <div id="experience-forms"></div>
+        </div>
 
-    <div class="experience-section">
-        <h2>Experience</h2>
-        <p>List Experiences in Reverse Chronological Order</p>
-        <label for="num-experiences">Number of Experiences:</label>
-        <input type="number" id="num-experiences" min="0" max="8" value="0">
-        <div id="experience-forms"></div>
-    </div>
+        <script src="scripts/experience.js"></script>
 
-    <script src="scripts/experience.js"></script>
+        <div class="projects-section">
+            <h2>Projects</h2>
+            <p>List Projects in Reverse Chronological Order</p>
+            <label for="num-projects">Number of Projects:</label>
+            <input type="number" id="num-projects" min="0" max="8" value="0">
+            <div id="project-forms"></div>
+        </div>
 
-    <div class="projects-section">
-        <h2>Projects</h2>
-        <p>List Projects in Reverse Chronological Order</p>
-        <label for="num-projects">Number of Projects:</label>
-        <input type="number" id="num-projects" min="0" max="8" value="0">
-        <div id="project-forms"></div>
-    </div>
+        <script src="scripts/projects.js"></script>
 
-    <script src="scripts/projects.js"></script>
+        <div class="skills-section">
+            <h2>Skills</h2>
+            <label for="num-skills-sections">Number of Sections:</label>
+            <input type="number" id="num-skills-sections" min="0" max="6" value="0">
+            <div id="skills-forms"></div>
+        </div>
 
-    <div class="skills-section">
-        <h2>Skills</h2>
-        <label for="num-skills-sections">Number of Sections:</label>
-        <input type="number" id="num-skills-sections" min="0" max="6" value="0">
-        <div id="skills-forms"></div>
-    </div>
+        <script src="scripts/skills.js"></script>
 
-    <script src="scripts/skills.js"></script>
+        <div class="create-resume-section">
+            <button id="create-resume">Generate Resume (.tex) 📄</button>
+            <button id="create-pdf-resume">Generate Resume (.pdf) 🖨️</button>
+            <button id="instruction-button">How to Import a TeX File into Overleaf 📥</button>
+        </div>
 
-    <div class="create-resume-section">
-        <button id="create-resume">Generate Resume (.tex) 📄</button>
-        <button id="create-pdf-resume">Generate Resume (.pdf) 🖨️</button>
-        <button id="instruction-button">How to Import a TeX File into Overleaf 📥</button>
-    </div>
-
-    <script src="scripts/texGeneration.js"></script>
-    <script src="scripts/pdfGeneration.js"></script>
-    <script src="scripts/instructions.js"></script>
-</body>
-
+        <script src="scripts/texGeneration.js"></script>
+        <script src="scripts/pdfGeneration.js"></script>
+        <script src="scripts/instructions.js"></script>
+    </body>
 </html>
